@@ -1,7 +1,10 @@
 import 'package:cat_trader/src/screens/login_screen.dart';
-import 'package:flutter/material.dart';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+void main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const App());
 }
 
@@ -17,6 +20,7 @@ class App extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 66, 66, 66),
           brightness: Brightness.dark,
           surface: const Color.fromARGB(255, 246, 248, 255),
+          onSecondary: const Color.fromARGB(255, 240, 242, 250),
           onSurface: const Color.fromARGB(255, 66, 66, 66),
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 246, 248, 255),

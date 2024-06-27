@@ -16,13 +16,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Cat> cats = [];
-  late List<dynamic> cards = [];
+  late List<dynamic> cards = [
+    Container(
+      alignment: Alignment.center,
+      child: const Text('1'),
+      color: Colors.blue,
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text('2'),
+      color: Colors.red,
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: const Text('3'),
+      color: Colors.purple,
+    )
+  ];
   var _isLoading = true;
 
   void _loadCats() async {
     _isLoading = true;
     print('loading...');
-    var catBody = await CatsApi.getCats();
+    // var catBody = await CatsApi.getCats();
+    var catBody = await CatsApi.getCatBreedImages('beng');
     print('got catbody:');
     print(catBody);
     List<Cat> currentCats = [];
@@ -60,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!_isLoading) {
       content = Column(
         children: [
-          ElevatedButton(onPressed: _loadCats, child: const Text('get cats neow')),
+          ElevatedButton(
+              onPressed: _loadCats, child: const Text('get cats neow')),
           Flexible(
             child: SizedBox(
               height: 550,
@@ -108,6 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.black,
               size: 40,
             )),
+        bottom: PreferredSize(
+          preferredSize:
+              const Size.fromHeight(1.0), // Set the height of the border
+          child: Container(
+            color: Colors.grey.shade300, // Set the color of the border
+            height: 1.0, // Set the thickness of the border
+          ),
+        ),
       ),
       body: content,
     );

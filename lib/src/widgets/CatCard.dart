@@ -14,9 +14,9 @@ class CatCard extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.onSecondary,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade500),
+        border: Border.all(color: Colors.grey.shade300),
       ),
       child: Column(
         children: [
@@ -52,12 +52,18 @@ class CatCard extends StatelessWidget {
               ],
             ),
           ),
-          const Row(
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
                 child: Text(
                   'probably going to be cat breed',
+                  style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withAlpha(128)),
                 ),
               ),
             ],
