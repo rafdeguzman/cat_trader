@@ -29,11 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           TextField(
             controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'Email'),
           ),
           TextField(
             controller: _passwordController,
-            decoration: InputDecoration(labelText: 'password'),
+            decoration: const InputDecoration(labelText: 'password'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -42,11 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement<void, void>(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => HomeScreen(),
+                  builder: (BuildContext context) => const HomeScreen(),
                 ),
               );
             },
-            child: Text('Login'),
+            child: const Text('Login'),
           )
         ],
       ),

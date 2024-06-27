@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cat_trader/src/models/cat.dart';
 
