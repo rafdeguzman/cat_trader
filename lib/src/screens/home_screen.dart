@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       var name = DummyData.catNames[Random().nextInt(50)];
       // clean the lifespan from form "x - y" to [x, y]
       var dirtyLifeSpan = details['lifeSpan'];
-      List<int> cleanLifeSpan =
+      List<dynamic> cleanLifeSpan =
           dirtyLifeSpan.split(" - ").map(int.parse).toList();
 
       currentCats.add(
@@ -61,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
           description: details['description'],
           id: id,
           lifeSpan: cleanLifeSpan,
+          origin: details['origin'],
+          originId: details['originId'],
         ),
       );
     }

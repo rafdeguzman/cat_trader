@@ -6,7 +6,9 @@ class Cat {
   String nameId;
   String breed;
   String description;
-  List<int> lifeSpan;
+  String origin;
+  String originId;
+  List<dynamic> lifeSpan;
   Cat({
     required this.name,
     required this.age,
@@ -16,6 +18,8 @@ class Cat {
     required this.description,
     required this.id,
     required this.lifeSpan,
+    required this.origin,
+    required this.originId,
   });
 
   void meow() {

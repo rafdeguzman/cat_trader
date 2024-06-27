@@ -43,12 +43,16 @@ class CatsApi {
     var breedId = responseBody['id'];
     var description = responseBody['breeds'][0]['description'];
     var lifeSpan = responseBody['breeds'][0]['life_span'];
+    var origin = responseBody['breeds'][0]['origin'];
+    var originId = responseBody['breeds'][0]['country_code'];
 
     var catDetails = {
       'breed': breed,
       'breedId': breedId,
       'description': description,
       'lifeSpan': lifeSpan,
+      'origin': origin,
+      'originId': originId,
     };
 
     return catDetails;
