@@ -33,7 +33,10 @@ class CatsApi {
     // https://api.thecatapi.com/v1/images/d55E_KMKZ
     var catsUrl = 'api.thecatapi.com';
     var catsPath = 'v1/images/${id}';
-    var url = Uri.https(catsUrl, catsPath);
+    var queryParams = {
+      'x-api-key': dotenv.env['CAT_API_KEY'],
+    };
+    var url = Uri.https(catsUrl, catsPath, queryParams);
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -64,7 +67,7 @@ class CatsApi {
     var queryParams = {
       'breed_ids': breeds,
       'limit': '3',
-      // 'x-api-key': dotenv.env['CAT_API_KEY']
+      'x-api-key': dotenv.env['CAT_API_KEY']
     }; // Provide the query parameters
     var url = Uri.https(
         catsUrl, catsPath, queryParams); // Pass the query parameters to the Uri
