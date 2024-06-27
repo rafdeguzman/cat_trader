@@ -147,7 +147,13 @@ class _CatCardState extends State<CatCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: () {}, child: const Icon(Icons.search)),
+              ElevatedButton(
+                  onPressed: () {},
+                  child: const Icon(Icons.search),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    iconColor: Color.fromARGB(255, 253, 58, 115),
+                  )),
               const SizedBox(
                 width: 48.0,
               ),
@@ -155,7 +161,11 @@ class _CatCardState extends State<CatCard> {
                   onPressed: () {
                     _showDetails(widget.cat);
                   },
-                  child: const Icon(Icons.article))
+                  child: const Icon(Icons.article),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    iconColor: Color.fromARGB(255, 253, 58, 115),
+                  ))
             ],
           )
         ],

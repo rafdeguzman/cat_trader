@@ -126,7 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
       content = Column(
         children: [
           ElevatedButton(
-              onPressed: _loadCats, child: const Text('get cats neow')),
+              onPressed: _loadCats,
+              child: const Text('get cats neow'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.onSecondary,
+                foregroundColor: Color.fromARGB(255, 253, 58, 115),
+              )),
           Flexible(
             child: SizedBox(
               height: 550,
@@ -139,12 +144,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () {}, child: const Icon(Icons.favorite_border)),
-              ElevatedButton(onPressed: () {}, child: const Text('🤞'))
+                onPressed: () {},
+                child: const Icon(Icons.close),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: CircleBorder(),
+                    iconColor: Color.fromARGB(255, 253, 58, 115),
+                    minimumSize: Size(75, 75)),
+              ),
+              SizedBox(
+                width: 72,
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Icon(Icons.favorite_border),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: CircleBorder(),
+                    iconColor: Color.fromARGB(255, 253, 58, 115),
+                    minimumSize: Size(75, 75)),
+              ),
             ],
           )
         ],
@@ -153,9 +179,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Catder',
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          'Catder 😻',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
         ),
         actions: [
           IconButton(
