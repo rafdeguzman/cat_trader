@@ -1,3 +1,4 @@
+import 'package:cat_trader/src/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color.fromARGB(255, 50, 58, 60),
       ),
-      // home: ... //TODO implement login page
+      home: LoginScreen(), //TODO implement login page
     );
   }
 }
