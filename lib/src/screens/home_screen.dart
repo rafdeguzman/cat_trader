@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:cat_trader/src/models/cat.dart';
 import 'package:cat_trader/src/services/cats_api.dart';
 import 'package:cat_trader/src/widgets/CatCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:cat_trader/src/services/dummy_data.dart';
 
@@ -16,40 +18,49 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Cat> cats = [];
-  late List<dynamic> cards = [
-    Container(
-      alignment: Alignment.center,
-      child: const Text('1'),
-      color: Colors.blue,
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('2'),
-      color: Colors.red,
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('3'),
-      color: Colors.purple,
-    )
-  ];
+  List<dynamic> breeds = [];
+  late List<dynamic> cards = [];
   var _isLoading = true;
 
   void _loadCats() async {
     _isLoading = true;
     print('loading...');
+
     // var catBody = await CatsApi.getCats();
-    var catBody = await CatsApi.getCatBreedImages('beng');
-    print('got catbody:');
-    print(catBody);
+
+    // get random catBreeds
+    String catBreeds = '';
+    for (int i = 0; i < 10; i++) {
+      var currentRandomBreed = breeds[Random().nextInt(breeds.length)]['id'];
+      catBreeds += currentRandomBreed + ',';
+    }
+
+    // getCatBreedImages returns some detail, mainly the cat ID is very important
+    var catBody = await CatsApi.getCatBreedImages(catBreeds);
+
     List<Cat> currentCats = [];
     for (var cat in catBody) {
+      var image = catBody[catBody.indexOf(cat)]['url'];
+      var id = catBody[catBody.indexOf(cat)]['id'];
+      var details = await CatsApi.getCatDetails(id);
+      var age = Random().nextInt(20) + 1;
+      var name = DummyData.catNames[Random().nextInt(50)];
+      // clean the lifespan from form "x - y" to [x, y]
+      var dirtyLifeSpan = details['lifeSpan'];
+      List<int> cleanLifeSpan =
+          dirtyLifeSpan.split(" - ").map(int.parse).toList();
+
       currentCats.add(
         // make a cat :3
         Cat(
-          name: DummyData.catNames[Random().nextInt(50)],
-          age: Random().nextInt(20) + 1,
-          image: catBody[catBody.indexOf(cat)]['url'],
+          age: age,
+          name: name,
+          image: image,
+          nameId: details['breedId'],
+          breed: details['breed'],
+          description: details['description'],
+          id: id,
+          lifeSpan: cleanLifeSpan,
         ),
       );
     }
@@ -64,15 +75,38 @@ class _HomeScreenState extends State<HomeScreen> {
     print('done!');
   }
 
+  Future<dynamic> _loadBreeds() async {
+    _isLoading = true;
+    print('loading breeds (should only happen once)');
+    final String breedsJson = await rootBundle.loadString('assets/breeds.json');
+    setState(() {
+      breeds = jsonDecode(breedsJson);
+      _isLoading = false;
+    });
+    print('done!');
+    print(breeds.length);
+  }
+
   @override
   void initState() {
-    _loadCats();
-    super.initState();
+    super
+        .initState(); // It's a good practice to call super.initState() at the beginning.
+    print(
+        'is breeds empty? ${breeds.length <= 0 || breeds.isEmpty}'); // Use isEmpty for clarity.
+
+    // Using an immediately invoked async function to await _loadBreeds.
+    () async {
+      if (breeds.isEmpty || breeds.length <= 0) {
+        // Simplified check for an empty list.
+        await _loadBreeds(); // Assuming _loadBreeds is an async function.
+      }
+      _loadCats(); // This will now wait until _loadBreeds is done.
+    }();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget content = const CircularProgressIndicator();
+    Widget content = Center(child: const CircularProgressIndicator());
 
     if (!_isLoading) {
       content = Column(

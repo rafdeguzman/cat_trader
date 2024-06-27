@@ -1,8 +1,9 @@
-
+import 'dart:convert';
 import 'package:cat_trader/src/models/cat.dart';
 
 class DummyData {
   static List<Cat> cats = [];
+  static List<dynamic> breeds = jsonDecode('breeds.json');
   static List<String> catNames = [
     'Mr. Whiskers',
     'Sir Purrs-a-Lot',

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:cat_trader/src/models/cat.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,13 +29,38 @@ class CatsApi {
     return List<Map<String, dynamic>>.from(responseBody);
   }
 
-  static Future<List<dynamic>> getCatBreedImages(String breed) async {
+  static getCatDetails(String id) async {
+    // https://api.thecatapi.com/v1/images/d55E_KMKZ
+    var catsUrl = 'api.thecatapi.com';
+    var catsPath = 'v1/images/${id}';
+    var url = Uri.https(catsUrl, catsPath);
+    var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var responseBody = json.decode(response.body);
+
+    var breed = responseBody['breeds'][0]['name'];
+    var breedId = responseBody['id'];
+    var description = responseBody['breeds'][0]['description'];
+    var lifeSpan = responseBody['breeds'][0]['life_span'];
+
+    var catDetails = {
+      'breed': breed,
+      'breedId': breedId,
+      'description': description,
+      'lifeSpan': lifeSpan,
+    };
+
+    return catDetails;
+  }
+
+  static Future<List<dynamic>> getCatBreedImages(String breeds) async {
     var catsUrl = 'api.thecatapi.com';
     var catsPath = 'v1/images/search';
     var queryParams = {
-      'breed_ids': breed,
-      'limit': '10',
-      'x-api-key': dotenv.env['CAT_API_KEY']
+      'breed_ids': breeds,
+      'limit': '3',
+      // 'x-api-key': dotenv.env['CAT_API_KEY']
     }; // Provide the query parameters
     var url = Uri.https(
         catsUrl, catsPath, queryParams); // Pass the query parameters to the Uri
