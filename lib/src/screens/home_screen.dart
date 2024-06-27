@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _isLoading = false;
     print('done!');
 
-    SnackBar snackbar = SnackBar(content: const Text('cats reloaded!'));
+    SnackBar snackbar = const SnackBar(content: Text('cats reloaded!'));
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
@@ -106,11 +106,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super
         .initState(); // It's a good practice to call super.initState() at the beginning.
     print(
-        'is breeds empty? ${breeds.length <= 0 || breeds.isEmpty}'); // Use isEmpty for clarity.
+        'is breeds empty? ${breeds.isEmpty || breeds.isEmpty}'); // Use isEmpty for clarity.
 
     // Using an immediately invoked async function to await _loadBreeds.
     () async {
-      if (breeds.isEmpty || breeds.length <= 0) {
+      if (breeds.isEmpty || breeds.isEmpty) {
         // Simplified check for an empty list.
         await _loadBreeds(); // Assuming _loadBreeds is an async function.
       }
@@ -120,18 +120,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = Center(child: const CircularProgressIndicator());
+    Widget content = const Center(child: CircularProgressIndicator());
 
     if (!_isLoading) {
       content = Column(
         children: [
           ElevatedButton(
               onPressed: _loadCats,
-              child: const Text('get cats neow'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.onSecondary,
-                foregroundColor: Color.fromARGB(255, 253, 58, 115),
-              )),
+                foregroundColor: const Color.fromARGB(255, 253, 58, 115),
+              ),
+              child: const Text('get cats neow')),
           Flexible(
             child: SizedBox(
               height: 550,
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Row(
@@ -152,24 +152,24 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ElevatedButton(
                 onPressed: () {},
-                child: const Icon(Icons.close),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.surface,
-                    shape: CircleBorder(),
-                    iconColor: Color.fromARGB(255, 253, 58, 115),
-                    minimumSize: Size(75, 75)),
+                    shape: const CircleBorder(),
+                    iconColor: const Color.fromARGB(255, 253, 58, 115),
+                    minimumSize: const Size(75, 75)),
+                child: const Icon(Icons.close),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 72,
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: const Icon(Icons.favorite_border),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.surface,
-                    shape: CircleBorder(),
-                    iconColor: Color.fromARGB(255, 253, 58, 115),
-                    minimumSize: Size(75, 75)),
+                    shape: const CircleBorder(),
+                    iconColor: const Color.fromARGB(255, 253, 58, 115),
+                    minimumSize: const Size(75, 75)),
+                child: const Icon(Icons.favorite_border),
               ),
             ],
           )

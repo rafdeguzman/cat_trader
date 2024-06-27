@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:cat_trader/src/models/cat.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +31,7 @@ class CatsApi {
   static getCatDetails(String id) async {
     // https://api.thecatapi.com/v1/images/d55E_KMKZ
     var catsUrl = 'api.thecatapi.com';
-    var catsPath = 'v1/images/${id}';
+    var catsPath = 'v1/images/$id';
     var queryParams = {
       'x-api-key': dotenv.env['CAT_API_KEY'],
     };
