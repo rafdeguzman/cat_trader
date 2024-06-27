@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import 'package:cat_trader/src/models/cat.dart';
 import 'package:cat_trader/src/services/cats_api.dart';
 import 'package:cat_trader/src/widgets/CatCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:cat_trader/src/services/dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var cats;
+  List<Cat> cats = [];
   late List<dynamic> cards = [];
   var _isLoading = true;
 
@@ -19,9 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
     var catBody = await CatsApi.getCats();
     print('got catbody:');
     print(catBody);
-    cats = catBody;
+    List<Cat> currentCats = [];
+    for (var cat in catBody) {
+      currentCats.add(
+        // make a cat :3
+        Cat(
+          name: DummyData.catNames[Random().nextInt(50)],
+          age: Random().nextInt(20) + 1,
+          image: catBody[catBody.indexOf(cat)]['url'],
+        ),
+      );
+    }
+
+    // cats becomes empty when loading them
+    cats = currentCats;
+
     setState(() {
-      cards = cats.map((cat) => CatCard(catImageUrl: cat['url'])).toList();
+      cards = cats.map((cat) => CatCard(cat: cat)).toList();
     });
     _isLoading = false;
     print('done!');
