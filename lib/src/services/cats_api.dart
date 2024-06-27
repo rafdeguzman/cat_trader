@@ -66,7 +66,7 @@ class CatsApi {
     var catsPath = 'v1/images/search';
     var queryParams = {
       'breed_ids': breeds,
-      'limit': '3',
+      'limit': '20',
       'x-api-key': dotenv.env['CAT_API_KEY']
     }; // Provide the query parameters
     var url = Uri.https(

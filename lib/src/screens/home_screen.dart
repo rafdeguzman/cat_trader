@@ -30,10 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // get random catBreeds
     String catBreeds = '';
-    for (int i = 0; i < 10; i++) {
+    // 20 unique breeds
+    List<String> savedBreeds = [];
+    int randomIndex = 0;
+    do {
       var currentRandomBreed = breeds[Random().nextInt(breeds.length)]['id'];
-      catBreeds += currentRandomBreed + ',';
-    }
+      if (!savedBreeds.contains(currentRandomBreed)) {
+        savedBreeds.add(currentRandomBreed);
+        catBreeds += currentRandomBreed + ',';
+        randomIndex++;
+      }
+    } while (randomIndex < 20);
 
     // getCatBreedImages returns some detail, mainly the cat ID is very important
     var catBody = await CatsApi.getCatBreedImages(catBreeds);
@@ -43,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       var image = catBody[catBody.indexOf(cat)]['url'];
       var id = catBody[catBody.indexOf(cat)]['id'];
       var details = await CatsApi.getCatDetails(id);
+      // use lifespan to have a determination as to how old
       var age = Random().nextInt(20) + 1;
       var name = DummyData.catNames[Random().nextInt(50)];
       // clean the lifespan from form "x - y" to [x, y]
@@ -75,6 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     _isLoading = false;
     print('done!');
+
+    SnackBar snackbar = SnackBar(content: const Text('cats reloaded!'));
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   Future<dynamic> _loadBreeds() async {
