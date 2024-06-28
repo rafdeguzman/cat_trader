@@ -24,20 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _loadCats() async {
     _isLoading = true;
-    print('loading...');
 
-    // var catBody = await CatsApi.getCats();
-
-    // get random catBreeds
-    String catBreeds = '';
-    // 20 unique breeds
-    List<String> savedBreeds = [];
+    String catBreeds = ''; // this is the string to query the api
     int randomIndex = 0;
+    String currentRandomBreed;
     do {
-      var currentRandomBreed = breeds[Random().nextInt(breeds.length)]['id'];
-      if (!savedBreeds.contains(currentRandomBreed)) {
-        savedBreeds.add(currentRandomBreed);
-        catBreeds += currentRandomBreed + ',';
+      currentRandomBreed = breeds[Random().nextInt(breeds.length)]['id'];
+      if (!catBreeds.contains(currentRandomBreed)) {
+        catBreeds += '$currentRandomBreed,';
         randomIndex++;
       }
     } while (randomIndex < 20);
@@ -50,13 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
       var image = catBody[catBody.indexOf(cat)]['url'];
       var id = catBody[catBody.indexOf(cat)]['id'];
       var details = await CatsApi.getCatDetails(id);
-      // use lifespan to have a determination as to how old
-      var age = Random().nextInt(20) + 1;
       var name = DummyData.catNames[Random().nextInt(50)];
       // clean the lifespan from form "x - y" to [x, y]
       var dirtyLifeSpan = details['lifeSpan'];
       List<dynamic> cleanLifeSpan =
           dirtyLifeSpan.split(" - ").map(int.parse).toList();
+      var age = 1 +
+          Random()
+              .nextInt(cleanLifeSpan[1]); // Age from 1 to value at random index
 
       currentCats.add(
         // make a cat :3
@@ -89,26 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
+  // calls CatsApi json file, that way loading is not done in the screen
   Future<dynamic> _loadBreeds() async {
-    _isLoading = true;
-    print('loading breeds (should only happen once)');
-    final String breedsJson = await rootBundle.loadString('assets/breeds.json');
-    setState(() {
-      breeds = jsonDecode(breedsJson);
-      _isLoading = false;
-    });
-    print('done!');
-    print(breeds.length);
+    breeds = await CatsApi.loadBreeds();
   }
 
   @override
   void initState() {
-    super
-        .initState(); // It's a good practice to call super.initState() at the beginning.
-    print(
-        'is breeds empty? ${breeds.isEmpty || breeds.isEmpty}'); // Use isEmpty for clarity.
+    super.initState();
 
-    // Using an immediately invoked async function to await _loadBreeds.
     () async {
       if (breeds.isEmpty || breeds.isEmpty) {
         // Simplified check for an empty list.

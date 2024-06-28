@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,4 +78,12 @@ class CatsApi {
     return List<Map<String, dynamic>>.from(responseBody);
   }
   // https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng
+
+  static Future<dynamic> loadBreeds() async {
+    {
+      final String breedsJson =
+          await rootBundle.loadString('assets/breeds.json');
+      return jsonDecode(breedsJson);
+    }
+  }
 }
