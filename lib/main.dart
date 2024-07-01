@@ -1,10 +1,23 @@
 import 'package:cat_trader/src/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() async {
+Future<void> main() async {
   await dotenv.load(fileName: '.env');
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+// Ideal time to initialize
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(const App());
 }
 

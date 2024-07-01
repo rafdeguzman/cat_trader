@@ -21,16 +21,4 @@ class Cat {
     required this.origin,
     required this.originId,
   });
-
-  void meow() {
-    print('$name says: Meow!');
-  }
-
-  void sleep() {
-    print('$name is sleeping...');
-  }
-
-  void eat(String food) {
-    print('$name is eating $food.');
-  }
 }

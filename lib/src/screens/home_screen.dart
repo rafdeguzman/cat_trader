@@ -77,11 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
       cards = cats.map((cat) => CatCard(cat: cat)).toList();
     });
     _isLoading = false;
-    print('done!');
-
     SnackBar snackbar = const SnackBar(content: Text('cats reloaded!'));
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    if (mounted) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
   }
 
   // calls CatsApi json file, that way loading is not done in the screen

@@ -12,8 +12,6 @@ class CatsApi {
     var catsPath = 'v1/images/search';
     var url = Uri.https(catsUrl, catsPath);
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     var responseBody = json.decode(response.body);
     return List<Map<String, dynamic>>.from(responseBody);
   }
@@ -23,8 +21,6 @@ class CatsApi {
     var catsPath = 'v1/breeds';
     var url = Uri.https(catsUrl, catsPath);
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     var responseBody = json.decode(response.body);
     return List<Map<String, dynamic>>.from(responseBody);
   }
@@ -38,8 +34,6 @@ class CatsApi {
     };
     var url = Uri.https(catsUrl, catsPath, queryParams);
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     var responseBody = json.decode(response.body);
 
     var breed = responseBody['breeds'][0]['name'];
@@ -72,8 +66,6 @@ class CatsApi {
     var url = Uri.https(
         catsUrl, catsPath, queryParams); // Pass the query parameters to the Uri
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
     var responseBody = json.decode(response.body);
     return List<Map<String, dynamic>>.from(responseBody);
   }
