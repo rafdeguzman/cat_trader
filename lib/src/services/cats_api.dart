@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:cat_trader/src/models/cat.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +32,7 @@ class CatsApi {
   static getCatDetails(String id) async {
     // https://api.thecatapi.com/v1/images/d55E_KMKZ
     var catsUrl = 'api.thecatapi.com';
-    var catsPath = 'v1/images/${id}';
+    var catsPath = 'v1/images/$id';
     var queryParams = {
       'x-api-key': dotenv.env['CAT_API_KEY'],
     };
@@ -78,4 +78,12 @@ class CatsApi {
     return List<Map<String, dynamic>>.from(responseBody);
   }
   // https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng
+
+  static Future<dynamic> loadBreeds() async {
+    {
+      final String breedsJson =
+          await rootBundle.loadString('assets/breeds.json');
+      return jsonDecode(breedsJson);
+    }
+  }
 }

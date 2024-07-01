@@ -49,23 +49,23 @@ class _CatCardState extends State<CatCard> {
                     Row(
                       children: [
                         Text(
-                          '${cat.origin}',
+                          cat.origin,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 20),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8.0,
                         ),
                         Text(
-                          '${countryCodeToFlagEmoji(cat.originId)}',
+                          countryCodeToFlagEmoji(cat.originId),
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontSize: 24),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8.0,
                     ),
                     Text(
@@ -149,11 +149,11 @@ class _CatCardState extends State<CatCard> {
             children: [
               ElevatedButton(
                   onPressed: () {},
-                  child: const Icon(Icons.search),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.surface,
-                    iconColor: Color.fromARGB(255, 253, 58, 115),
-                  )),
+                    iconColor: const Color.fromARGB(255, 253, 58, 115),
+                  ),
+                  child: const Icon(Icons.search)),
               const SizedBox(
                 width: 48.0,
               ),
@@ -161,11 +161,11 @@ class _CatCardState extends State<CatCard> {
                   onPressed: () {
                     _showDetails(widget.cat);
                   },
-                  child: const Icon(Icons.article),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.surface,
-                    iconColor: Color.fromARGB(255, 253, 58, 115),
-                  ))
+                    iconColor: const Color.fromARGB(255, 253, 58, 115),
+                  ),
+                  child: const Icon(Icons.article))
             ],
           )
         ],
