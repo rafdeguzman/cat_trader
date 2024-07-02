@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"ios":{"default":{"projectId":"cat-trader","appId":"1:495489948795:ios:403a61f230ef3a27fc16de","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"cat-trader","configurations":{"ios":"1:495489948795:ios:403a61f230ef3a27fc16de"}}}}}}
